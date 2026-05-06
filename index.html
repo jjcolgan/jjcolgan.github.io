@@ -105,14 +105,15 @@
       transform-origin: center;
     }
 
-    .tagline {
-      font-family: 'Karla', sans-serif;
-      font-size: 0.85rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--muted);
+    .profile-photo {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--accent);
+      display: block;
       opacity: 0;
-      animation: fadeUp 0.8s ease forwards 1.2s;
+      animation: fadeUp 1s ease forwards 1.5s;
     }
 
     /* ── NAV ── */
@@ -124,7 +125,7 @@
       gap: 2.5rem;
       padding: 1.6rem 2rem 2.4rem;
       opacity: 0;
-      animation: fadeUp 0.8s ease forwards 1.5s;
+      animation: fadeUp 0.8s ease forwards 2s;
     }
 
     nav a {
@@ -165,16 +166,6 @@
     @keyframes scaleIn {
       from { opacity: 0; transform: scaleX(0); }
       to   { opacity: 1; transform: scaleX(1); }
-    }
-
-   .profile-photo {
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid var(--accent);
-      opacity: 0;
-      animation: fadeUp 0.8s ease forwards 1.5s;
     }
   </style>
 </head>
