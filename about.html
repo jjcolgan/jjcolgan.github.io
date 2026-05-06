@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About — John (JJ) Colgan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Karla:wght@300;400&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --cream: #f5f0e8;
+      --ink: #1a1714;
+      --muted: #7a7065;
+      --accent: #b5813b;
+    }
+
+    html, body {
+      min-height: 100%;
+    }
+
+    body {
+      background-color: var(--cream);
+      color: var(--ink);
+      font-family: 'Karla', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Subtle grain overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      background-size: 180px;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.5;
+    }
+
+    /* Decorative corner lines */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 24px; left: 24px; right: 24px; bottom: 24px;
+      border: 1px solid rgba(26,23,20,0.12);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      padding: 2.4rem 2rem 1.6rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.2s;
+    }
+
+    nav a {
+      font-family: 'Karla', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--muted);
+      transition: color 0.25s;
+      position: relative;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0; right: 100%;
+      height: 1px;
+      background: var(--accent);
+      transition: right 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--ink);
+    }
+
+    nav a:hover::after {
+      right: 0;
+    }
+
+    nav a.active {
+      color: var(--ink);
+    }
+
+    nav a.active::after {
+      right: 0;
+    }
+
+    /* ── MAIN CONTENT ── */
+    main {
+      flex: 1;
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+    }
+
+    /* Page header */
+    .page-eyebrow {
+      font-family: 'Karla', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--accent);
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.4s;
+    }
+
+    .page-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      line-height: 1.05;
+      margin-top: 0.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.6s;
+    }
+
+    .divider {
+      width: 48px;
+      height: 1px;
+      background: var(--accent);
+      margin: 1.8rem 0;
+      opacity: 0;
+      animation: scaleIn 0.6s ease forwards 0.9s;
+      transform-origin: left;
+    }
+
+    /* Bio section */
+    .bio {
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 1.1s;
+    }
+
+    .bio p {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: clamp(1.1rem, 2vw, 1.25rem);
+      line-height: 1.8;
+      color: var(--ink);
+      margin-bottom: 1.4rem;
+    }
+
+    .bio p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Research interests */
+    .section-label {
+      font-family: 'Karla', sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .interests {
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 1.4s;
+      margin-top: 3rem;
+    }
+
+    .interest-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .interest-list li {
+      font-family: 'Karla', sans-serif;
+      font-size: 0.88rem;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      padding-left: 1.2rem;
+      position: relative;
+    }
+
+    .interest-list li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+
+    /* Affiliations */
+    .affiliations {
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 1.6s;
+      margin-top: 3rem;
+    }
+
+    .affil-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .affil-list li {
+      font-family: 'Karla', sans-serif;
+      font-size: 0.88rem;
+      color: var(--muted);
+      padding-left: 1.2rem;
+      position: relative;
+    }
+
+    .affil-list li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+
+    .affil-list li span {
+      display: block;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 0.1rem;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scaleX(0); }
+      to   { opacity: 1; transform: scaleX(1); }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html" class="active">About</a>
+    <a href="#">Work</a>
+    <a href="#">Projects</a>
+    <a href="#">Contact</a>
+  </nav>
+
+  <main>
+    <p class="page-eyebrow">About</p>
+    <h1 class="page-title">John <em>(JJ)</em> Colgan</h1>
+    <div class="divider"></div>
+
+    <div class="bio">
+      <p>
+        I am a senior graduate student in the Chang and Blekhman labs at the University of Chicago,
+        where my research sits at the intersection of microbiology, genomics, and host-microbe biology.
+        With over eight years of research experience spanning ecology, bioinformatics, and micro- and
+        molecular biology, I bring a broad and integrative perspective to the study of the gut microbiome.
+      </p>
+      <p>
+        My work focuses on identifying the bacterial genes that govern microbial engraftment across
+        distinct regions of the gastrointestinal tract — particularly the mechanistic differences between
+        colonization of the small and large intestine. By integrating large multi-omic datasets, I aim to
+        uncover the molecular interactions through which host and microbe establish mutually beneficial
+        systems, and to understand how regional host-microbe homeostasis is maintained across the
+        intestinal tract.
+      </p>
+    </div>
+
+    <div class="interests">
+      <p class="section-label">Research Interests</p>
+      <ul class="interest-list">
+        <li>Microbial engraftment and niche colonization in the gut</li>
+        <li>Regional host-microbiome interactions along the intestinal tract</li>
+        <li>Multi-omic data integration (genomics, transcriptomics, metagenomics)</li>
+        <li>Host-microbe co-evolution and mutualistic systems</li>
+        <li>Computational approaches in microbial ecology and bioinformatics</li>
+      </ul>
+    </div>
+
+    <div class="affiliations">
+      <p class="section-label">Affiliations</p>
+      <ul class="affil-list">
+        <li>
+          <span>Graduate Research</span>
+          Chang Lab — University of Chicago
+        </li>
+        <li>
+          <span>Graduate Research</span>
+          Blekhman Lab — University of Chicago
+        </li>
+        <li>
+          <span>Institution</span>
+          University of Chicago, Department of Human Genetics
+        </li>
+      </ul>
+    </div>
+  </main>
+
+</body>
+</html>
